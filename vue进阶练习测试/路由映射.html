@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        a{
+            text-decoration: none;
+            color: #333333;
+        }
+        .active{
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <router-link to="/home" exact>首页</router-link>
+        <router-link to="/list" exact>列表</router-link>
+        <!-- 路由出口 -->
+        <router-view></router-view>
+    </div>
+    <script src="../js/vue.js"></script>
+    <script src="../js/vue-router.js"></script>
+    <script>
+        let Home = {
+            template:"<div><h2>HOME</h2></div>"
+        };
+        let List = {
+            template:"<div><h2>LIST</h2></div>"
+        };
+        let router = new VueRouter({
+            // mode:"history",
+            //路由规则
+            routes:[
+                //默认打开时显示home组件，默认路劲为，'/'
+                {
+                    path:'/',
+                    component:Home
+                },
+                {
+                    path:'/home',
+                    component:Home
+                },
+                {
+                    path:'/list',
+                    component:List
+                },
+                // 从上到下依次匹配，都没有匹配到就是最后一个，redirect重定向
+                {
+                    path:'/*',
+                    redirect:'/home'
+                }
+            ],
+            // 路由导航切换时的类自定义为active
+            linkActiveClass:"active"
+        })
+        var vm = new Vue({
+            el:"#app",
+            router
+        })
+    </script>
+</body>
+</html>

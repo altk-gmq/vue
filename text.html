@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <title></title>
+    <script src="js/vue.js"></script>
+<!-- 引入文件 -->
+    <script src="js/vue-router.js"></script>
+ </head>
+ <body>
+  <div id="container">
+        <p>{{msg}}</p>
+<!--通过router-view指定盛放组件的容器  -->
+        <router-view></router-view>
+
+    </div>
+    <script>
+        var testLogin = Vue.component("login",{
+            template:`
+                <div>
+                    <h1>这是我的登录页面</h1>
+                    <router-link to="/myRegister">注册</router-link>
+                </div>
+            `
+            /*to后面是路由地址*/
+        })
+        var testRegister = Vue.component("register",{
+            template:`
+                <div>
+                    <h1>这是我的注册页面</h1>
+                </div>
+            `
+        })
+        //配置路由词典
+        const    myRoutes =[
+            {path:'',component:testLogin},
+            {path:'/myLogin',component:testLogin},
+            {path:'/myRegister',component:testRegister}
+        ]
+
+        const myRouter = new VueRouter({
+            routes:myRoutes
+        })
+        new Vue({
+            router:myRouter,
+            el:"#container",
+            data:{
+                msg:"Hello VueJs"
+            }
+        })
+    </script>
+ </body>
+</html>

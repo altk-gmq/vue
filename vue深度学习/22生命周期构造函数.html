@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>过滤器的使用</title>
+    <script src="../js/vue.js"></script>
+    <style type="text/css">
+    </style>
+</head>
+<body>
+    <div id="app">
+        <App></App>
+    </div>
+    <script>
+
+        let App={
+            data(){
+                return{
+                    msg:"malsx"
+                }
+            },
+            template:
+                `<div>
+                    {{msg}}
+                    <button @click="change">update</button>
+                </div>`,
+            methods:{
+                change:function(){
+                    this.msg = "lisi"
+                }
+            },
+                // 组建创建之前
+            beforeCreate(){
+                console.log('这是创建之前的数据：'+this.msg)
+            },
+            // 组建创建之后，created中可以操作数据，发送ajax请求，实现vue=>页面，数据驱动视图
+            created(){
+                console.log('这是创建之后的数据：'+this.msg)
+            },
+            // 数据装载到dom之前
+            beforeMount(){
+                console.log(document.getElementById("app"))
+            },
+            mounted(){
+                // 这里操作dom,可以获取到dom元素
+                console.log(document.getElementById("app"))
+            },
+            beforeUpdate(){
+                // 数据更新之前
+                console.log(document.getElementById("app").innerHTML)
+            },
+            updated(){
+                // 数据更新之后
+                console.log(document.getElementById("app").innerHTML)
+            },
+            beforeDestroy(){
+                // 组件销毁之前
+                console.log(document.getElementById("app").innerHTML)
+            },
+            destroyed(){
+                // 组件销毁之后
+                console.log(document.getElementById("app").innerHTML)
+            }
+        }
+    	
+        new Vue({
+            el:"#app",
+            data(){
+                return{
+
+                }
+            },
+            components:{
+                App
+            }
+        })
+    </script>
+</body>
+</html>

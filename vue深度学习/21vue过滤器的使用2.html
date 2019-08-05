@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>过滤器的使用</title>
+    <script src="../js/vue.js"></script>
+    <script type="text/javascript" src="moment.js"></script>
+    <style type="text/css">
+    </style>
+</head>
+<body>
+    <div id="app">
+        <App></App>
+    </div>
+    <script>
+    	Vue.filter('myTime',function(val,formatStr){
+    		return moment(val).format(formatStr)
+    	})
+        let App = {
+            data(){
+                return{
+                    text:'我是父组件数据',
+                    time: new Date()
+                }
+            },
+            template:
+                `<div id ="a" class="header">
+                    <h2>{{text}}</h2>
+                    <h2>{{text | myReverse}}</h2>
+                    <h2>{{time | myTime('YYYY-MM-DD')}}</h2>
+                    <br>
+                    <h2>{{time | myTime('YYYY-MM')}}</h2>
+                     <br>
+                    <h2>{{time | myTime('YYYY')}}</h2>
+                </div>`,
+                filters:{
+                    myReverse:function(val){
+                        return val.split('').reverse().join('')
+                    },
+                }
+        }
+        new Vue({
+            el:"#app",
+            data(){
+                return{
+
+                }
+            },
+            components:{
+                App
+            }
+        })
+    </script>
+</body>
+</html>

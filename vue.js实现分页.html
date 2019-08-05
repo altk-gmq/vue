@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>分页</title>
+    <script src="js/vue.js"></script>
+    <style>
+        .page li{
+            padding: 0 10px;
+            height: 30px;
+            line-height: 30px;
+            border:1px solid #cccccc;
+            float: left;
+            list-style: none;
+        }
+        .page li a{
+            display: block;
+            color: green;
+            text-decoration: none;
+        }
+        .fisb{
+            background: #cccccc;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <ul class="page">
+            <li v-for="n in pagers">
+                <a href="javascript:;" v-bind:class="fisb ===n+1?'active':''">{{n+1}}</a>
+            </li>
+        </ul>
+    </div>
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                fisb:1,
+                pagers:10,
+            }
+        })
+    </script>
+</body>
+</html>

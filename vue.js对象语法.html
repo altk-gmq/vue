@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+    <style>
+        .static{
+            width: 500px;
+            height: 200px;
+            border: 1px solid #000000;
+        }
+        .classa{
+            background: blue;
+        }
+        .classb{
+            background: rebeccapurple;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="static" :class="{'classa':isA,'classb':isB}">
+        </div>
+        <div class="static" :class="classObject">
+        </div>
+    </div>
+    <script>
+        window.onload = function () {
+            var dataList = {
+                isA:true,
+                isB:false,
+                //直接绑定数据里的一个对象：
+                classObject:{
+                    'classa':true,
+                    'classb':false,
+                }
+            };
+            new Vue({
+                el:"#app",
+                data:dataList,
+            });
+            setTimeout(function () { 
+                dataList.isA = false;
+                dataList.isB = true;
+                dataList.classObject = {
+                    'classa':false,
+                    'classb':false,
+                }
+            },5000)
+        };
+       
+    </script>
+</body>
+</html>

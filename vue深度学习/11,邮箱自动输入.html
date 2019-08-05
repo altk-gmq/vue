@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>邮箱自动输入</title>
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+	<script type="text/javascript" src="../js/vue.js"></script>
+	<style type="text/css">
+		.email-box{
+			position: relative;
+		}
+		.emailMenu{
+			position: absolute;
+			top: 33px;
+			left: 0;
+			width: 100%;
+		}
+		.emailMenu ul{
+			margin: 0 15px;
+			border: 1px solid #ccc;
+		}
+		.emailMenu ul li{
+			padding: 6px 12px;
+			cursor: default;
+		}
+		.emailMenu li:hover,.emailMenu li.active{
+			background: #eee;
+		}
+	</style>
+</head>
+<body>
+    <div id="app">
+    	<div class="container">
+    		<form class="form-horizontal" @submit.prevent>
+    			<div class="form-group">
+    				<label class="control-label col-lg-2">邮箱</label>
+    				<div class="col-lg-3 email-box">
+    					<input type="text" name="" autocomplete="off" class="form-control" v-model.trim="form.email" @keydown.down = "changeEmail(1)" @keydown.up.prevent = "changeEmail(0)" @keydown.enter = "enterEmail" @focus="is_show=true" @blur="blurChange">
+    					<div class="emailMenu" v-show="emailList.length">
+    						<ul class="list-unstyled">
+    							<li v-for="(em,i) in emailList" :class="{active:i == type_no}" @mouseenter="mouse_no = i" @mouserleave = "mouse_no = -1" @click="clickEmail">{{em}}</li>
+    						</ul>
+    					</div>
+    				</div>
+    			</div>
+    		</form>
+    	</div>
+    </div>
+    <script type="text/javascript">
+    	var app = new Vue({
+    		el:"#app",
+    		data:{
+    			form:{
+    				email:''
+    			},
+    			types:['qq.com','163.com','189.com','sina.com','hotmail.com'],
+    		    type_no :-1,
+    		    mouse_no:-1,
+    		    is_show:true,
+    		},
+    		computed:{
+    			emailList:function(){
+    				var emailList = [];
+    				var emailArr = this.form.email.split('@');
+    				if(this.form.email.length){
+    					this.types.forEach(function(type){
+    						if(emailArr.length == 1){
+    							emailList.push(emailArr[0]+'@'+type);
+    						}else{
+    							if (type.indexOf(emailArr[1]) == 0 && type!=emailArr[1]) {
+    								emailList.push(emailArr[0]+'@'+type)
+    							}
+    						}	
+    					})
+    				}
+    				return emailList;
+    			}
+    		},
+    		methods:{
+    			changeEmail:function(type){
+    				var len = this.emailList.length;
+    				if(type){
+    					this.type_no ++;
+	    				if(this.type_no>= len){
+	    					this.type_no=0;
+	    				}
+    				}else{
+    					this.type_no--;
+    					if(this.type_no<0){
+    						this.type_no = len-1;
+    					}
+    				}
+    			},
+    			enterEmail:function(){
+    				if(this.type_no == -1) return;
+    				this.form.email = this.emailList[this.type_no];
+    				this.type_no = -1;
+    				this.mouse_no = -1;
+    			},
+    			clickEmail:function(){
+    				this.form.email = this.emailList[this.mouse_no];
+    				this.type_no = -1;
+    				this.mouse_no = -1;
+    			},
+    			blurChange:function(){
+    				if(this.mouse_no > -1) this.clickEmail();
+                    this.is_show = false;
+    			}
+    		}
+    	})
+    </script>
+</body>
+</html>

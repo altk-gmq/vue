@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>全局组件使用</title>
+    <script src="../js/vue.js"></script>
+    <style type="text/css">
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .header{
+            height: 40px;
+            line-height: 40px;
+            /*background: #ccc;*/
+            box-shadow: 4px 4px 8px #333;
+            padding: 0 15px;
+            overflow: hidden;
+        }
+        .title{
+            font-size: 16px;
+            width: 200px;
+            float: left;
+        }
+        .nav{
+            float: right;
+        }
+        .nav li{
+            display: inline-block;
+            padding: 0 15px;
+        }
+        .nav li a{
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+        }
+        .nav li a:hover,.nav li a.active{
+            color: #2261a9;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <App></App>
+        <Vbtn>我是二号按钮</Vbtn>
+    </div>
+    <script>
+        Vue.component('Vbtn',{
+            data(){
+                return{
+                    num:2,
+                }
+            },
+            template:
+                `<button @click="clickAdd">
+                    <slot></slot>
+                </button>`,
+            methods:{
+                clickAdd:function(){
+                    this.num++;
+                    alert(this.num)
+                }
+            }    
+        });
+
+       
+        // 声明子
+        let App = {
+            data(){
+                return{
+                    text:'vue.js 组件--我是根组件'
+                }
+            },
+            template:
+                `<div id ="a" class="header">
+                    <Vheader_title></Vheader_title>
+                    <Vheader_nav></Vheader_nav>
+                    <Vbtn>我是一号按钮</Vbtn>
+                </div>`,
+        }
+        new Vue({
+            el:"#app",
+            data(){
+                return{
+
+                }
+            },
+            components:{
+                App
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/index.css">
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <!-- 挂载点，模板，实例 -->
+    <!-- app就是vue的一个挂载点 -->
+    <!-- app里面的内容就是模板 -->
+    <div id="app">
+        {{message}}<!-- //插值表达式 -->
+        <span v-if="seen">Now you see me</span>
+        <ol>
+            <li v-for="todo in todos">
+                {{todo.text}}
+            </li>
+        </ol>
+        {{a}}
+    </div>
+    <script src="js/index.js"></script>
+</body>
+</html>

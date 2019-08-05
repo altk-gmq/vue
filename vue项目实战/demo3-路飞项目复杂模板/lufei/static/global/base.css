@@ -1,0 +1,21 @@
+*{
+	padding: 0;
+	margin: 0;
+}
+html,body{
+  height: 100%;
+}
+.clearfix:after{
+    content: "";
+    clear: both;
+    display: block;
+    height: 0;
+    visibility:hidden;
+}
+.clearfix{
+     /* 触发 hasLayout */ 
+   *zoom: 1;
+}
+ul,ol{
+  list-style: none;
+}

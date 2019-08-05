@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>vue demo</h1>
+                <div id="app">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>书名</th>
+                                <th>作者</th>
+                                <th>价格</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="book in books">
+                                <td>{{book.id}}</td>
+                                <td>{{book.name}}</td>
+                                <td>{{book.author}}</td>
+                                <td>{{book.price}}</td>
+                                <td>
+                                    <div class="col-md-6">
+                                        <button type="button" class="btn btn-success" class="del" @click="delBook(book)">删除</button>                           
+                                        <button type="button" class="btn btn-success" @click="updataBook(book)">修改</button></div>
+                                    <div class="col-md-6"></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div id="add-book">
+                        <div class="row">
+                            <div class="col-md-3">
+                                输入书名
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control">
+                            </div>
+                            <br>
+
+                            <h3>添加书籍</h3>
+                            <div class="form-group">
+                                <label for="id">书名</label>
+                                <input type="text" class="form-control" id="id"  v-model="book.name" placeholder="输入书名">
+                            </div>
+                            <div class="form-group">
+                                <label for="author">作者</label>
+                                <input type="text" class="form-control" id="author"  v-model="book.author" placeholder="输入作者">
+                            </div>
+                            <div class="form-group">
+                                <label for="price">价格</label>
+                                <input type="text" class="form-control" id="price"  v-model="book.price" placeholder="价格">
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-primary btn-block" @:click="submit">确定</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                newbook:{
+                    id:"",
+                    author:"",
+                    name:"",
+                    price:""
+                },
+                books:[{
+                    id:1,
+                    author:"张三",       
+                    name:"张三自传漫画",
+                    price:12.0
+                },
+                {
+                    id:2,
+                    author:"李四",       
+                    name:"李四自传漫画",
+                    price:12.0
+                },
+                {
+                    id:3,
+                    author:"王五",       
+                    name:"王五自传漫画",
+                    price:12.0
+                },
+            ]
+            },
+            methods:{
+                submit:function(){
+                    this.books.push(this.newbook);
+                    this.newbook = {id:'',author:'',name:'',price:''}
+                }
+            }
+        })
+    </script>
+</body>
+</html>

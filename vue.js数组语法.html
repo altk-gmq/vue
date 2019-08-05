@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+    <style>
+        .static{
+            width: 500px;
+            height: 200px;
+            border: 1px solid #000000;
+        }
+        .classa{
+            background: blue;
+        }
+        .classb{
+            background: rebeccapurple;
+        }
+    </style>
+</head>
+<body>
+        <div id="app">
+                <div :class="[isS,classStyle?isA:isB]">
+                </div>
+            </div>
+            <script>
+                window.onload = function () {
+                    var dataList = {
+                        isA:'classa',
+                        isB:'classb',
+                        isS:'static',
+                        classStyle:false,
+                    };
+                    new Vue({
+                        el:"#app",
+                        data:dataList,
+                    });
+                    setTimeout(function(){
+                        dataList.classStyle = true;
+                    },5000)
+                };
+               
+            </script>
+</body>
+</html>

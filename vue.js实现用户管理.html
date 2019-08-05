@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no,
+          initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>用户管理系统</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+</head>
+<body>
+<div id="app">
+    <div>
+        <label for="a">姓名</label>
+        <input type="text" name="" id="a" v-model="newuser.name">
+    </div>
+    <div>
+        <label for="b">年龄</label>
+        <input type="text" name="" id="b"  v-model="newuser.age">
+    </div>
+    <div>
+        <label for="c">性别</label>
+        <input type="text" name="" id="c"  v-model="newuser.sex">
+    </div>
+    <div>
+        <button @click="adduser">添加</button>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>姓名</th><th>年龄</th><th>性别</th><th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="(user,index) in users">
+                <td>{{user.name}}</td>
+                <td>{{user.age}}</td>
+                <td>{{user.sex}}</td>
+                <td><button @click="deleteuser">delete</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+    <script src="js/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                newuser:{
+                    name:'',
+                    age:'23',
+                    sex:'女'
+                },
+                users:[
+                    {
+                        name:'jsf',
+                        age:24,
+                        sex:"女"  
+                    },
+                    {
+                        name:'lebron',
+                        age:24,
+                        sex:"男"  
+                    },
+                    {
+                        name:'kevin',
+                        age:24,
+                        sex:"男"  
+                    },
+                ]
+            },
+            methods:{
+                adduser:function(){
+                    name = document.getElementById("a").value;
+                    age = document.getElementById("b").value;
+                    sex = document.getElementById("c").value;
+                    if(name == "" ||age == "" || sex == ""){
+                        alert("输入完整信息")
+                    }
+                    else{
+                        this.users.push(this.newuser);
+                    // 添加完newPerson对象后，重置newPerson对象
+                    this.newuser = {name:'',age:'',sex:''}
+                    }
+                    
+                },
+                deleteuser:function(index){
+                    this.users.splice(index,1)
+                }
+            }
+        })
+    </script>
+</body>
+</html>

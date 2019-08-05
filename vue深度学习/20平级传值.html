@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>平级传值</title>
+	<script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+    	<App></App>
+    </div>
+    <script type="text/javascript">
+    	 Vue.component('Text2',{
+        	data(){
+    			return{
+    				msg:"我是子组件数据"
+    			}
+    		},
+    		template:
+    		``,
+    		methods:{
+    		}
+        })
+        Vue.component('Text1',{
+        	data(){
+    			return{
+    				msg:"我是子组件数据"
+    			}
+    		},
+    		template:
+    		`<button @click="clickhander">传递1</button>`,
+    		methods:{
+    			clickhander(){
+
+    			}
+    		}
+        })
+    	let Vheader={
+    		data(){
+    			return{}
+    		},
+    		template:
+    		`<div class="header">
+			    <Text1></Text1>
+			    <Text2></Text2>
+    		</div>`
+    	}
+    	let App = {
+    		data(){
+    			return{}
+    		},
+    		template:
+    		`<div class="app">
+			    <Vheader></Vheader>
+    		</div>`,
+    		components:{
+    			Vheader
+    		}
+    	}
+    	new Vue({
+    		el:"#app",
+    		data(){
+    			return{}
+    		},
+    		components:{
+    			App
+    		}
+    	})
+    </script>
+</body>
+</html>

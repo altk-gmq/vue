@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue中属性绑定和双向数据绑定</title>
+    <script src="js/vue.js"></script>
+    <style>
+        .bd{
+            background: #ff00ff;
+        }
+        .fontSize{
+            font-size: 30px;
+        }
+        .text-red{
+            color: red;
+        }
+        .color{
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <div id="root">
+            <!-- v-bind == :属性绑定模板指令 title指的是data中的titile-->
+        <div v-bind:title="title">hello world</div>
+        <!-- //简写 -->
+        <div :title="title">hello world</div>
+        <!--v-model 双向数据绑定只能用在表单中。input/textarea 中 -->
+        <input v-model="msg"/>
+        <div>{{msg}}</div>
+        <p :class="{bd:isbd}">属性</p>
+        <p :class="{bd:true}">属性</p>
+        //有-的属性需要添加单引号，或者使用驼峰命名法
+        <p :class="{'text-red':pclass.isbd,color:pclass.isbd}">属性</p>
+        <p :class="stobj">弄好啊</p>
+        <p>数组</p>
+        <p :class="['bd',stobj]">你好啊 </p>
+        <p :class="['bd',{'color':pclass.isbd}]">你好啊 </p>
+    </div>
+    <script>
+        new Vue({
+            el:"#root",
+            data:{
+                msg:"你好啊",
+                title:"this is a hello world",
+                isbd:true,
+                pclass:{
+                    isbd:true,
+                    istext:true,
+                },
+                stobj:{
+                    color:true,
+                    fontSize:true,
+                }
+            }
+        })
+    </script>
+</body>
+</html>

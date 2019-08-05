@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+    	<img :src="images[currIndex].imgSrc" :alt="images[currIndex].alt" @click="clickimg" @mouseenter="clear" @mouseleave="add">
+    	<button type="button" @click="next">下一张</button>
+    	<button type="button" @click="prve">上一张</button>
+    </div>
+    <script type="text/javascript">
+    	var app = new Vue({
+    		el:"#app",
+    		data(){
+    			return{
+					images:[
+		    			{id:1,imgSrc:"../img/1.jpg",alt:"我是一号校花"},
+		    			{id:2,imgSrc:"../img/2.jpg",alt:"我是二号校花"},
+		    			{id:3,imgSrc:"../img/3.jpg",alt:"我是三号校花"},
+		    			{id:4,imgSrc:"../img/4.jpg",alt:"我是四号校花"}
+	    			],
+	    			currIndex:0,
+	    			sdt:""
+    			}
+    		},
+    		methods:{
+    			next:function(){
+    				this.currIndex++;
+    				if(this.currIndex>this.images.length-1){
+    					this.currIndex = 0;
+    				};
+    				// clearInterval(this.setIn)
+    			},
+    			prve:function(){
+    				this.currIndex--;
+    				if(this.currIndex < 0){
+    					this.currIndex = this.images.length-1;
+    				};
+    			},
+    			clickimg:function(e){
+    				alert(e.target.alt)
+    			},
+    			clear:function(){
+    				clearInterval(sdt,2000)
+    			},
+    			add:function(){
+	    			sdt=setInterval(this.next,4000)
+    			}
+    		},
+    		created(){
+					setInterval(()=>{
+						this.currIndex++;
+						if(this.currIndex>this.images.length-1){
+    					this.currIndex = 0;
+    				};
+					},4000)
+    		},
+    		// mounted(){
+	    	// 		sdt=setInterval(this.next,4000)
+    		// },
+    	})
+    </script>
+</body>
+</html>

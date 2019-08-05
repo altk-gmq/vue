@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <!-- v-if对应项为flase时，将元素直接删除 存在与否-->
+        <div v-if="show">hell0 worls</div>
+        <button @click="handleclick">toggle</button>
+<hr>
+        <!-- v-show对应项为flase时，将元素的display设为none 显示与否-->
+        <div v-show="show">hell0 worls</div>
+        <button @click="handleclick">toggle</button>
+<hr>
+        <ul>
+            <!-- :key list中的每一项内容不许相同 -->
+            <!-- item in list 向列表添加list中的数据 -->
+            <!-- item of list 向列表添加外部数据 -->
+            <li v-for="item in list" :key="item">
+                {{item.name}}
+                {{item.age}}
+                {{item.sex}}
+            </li>
+        </ul>
+    </div>
+    <script>
+        new Vue({
+            el:"#root",
+            data:{
+                show:true,
+            list:[
+                {name:"jack"},
+                {age:25},
+                {sex:"man"}
+                ]
+           },
+           methods:{
+               handleclick:function(){
+                   this.show = !this.show;
+               }
+           }
+        })
+    </script>
+</body>
+</html>

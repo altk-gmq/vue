@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <my-com2></my-com2>
+    </div>
+    <template id="teml">
+        <div>
+            <h1>这是通过template元素在外部定义组件结构，</h1>
+            <h4>好用，不错</h4>
+        </div>
+    </template>
+    <script>
+        Vue.component('myCom2',{
+            template:'#teml'
+        })
+        new Vue({
+            el:"#app"
+        })
+    </script>
+</body>
+</html>

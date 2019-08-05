@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>1,vue实例</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="box">
+        <input type="text" v-drag>
+        <div :style="{width: '200px',height: '200px',background: 'red',position: 'absolute',left: 0,top: '67px'}"></div>
+    </div>
+    <script type="text/javascript">
+    	// 创建一个vue实例 new Vue  全局指令
+    	Vue.directive('drag',{
+            // el.onmousedown = function(ev){
+            //     var disX = ev.clientX - el.offsetLeft;
+            //     var disY = ev.clientY - el.offsetTop;
+            //     document.onmousemove = function(ev){
+            //         var l = ev.clientX - disX;
+            //         var t = ev.clientY - disY;
+            //         el.style.left = l+'px';
+            //         el.style.top = t+'px';
+            //     };
+            //     document.onmousedup = function(){
+            //         document.onmousedmove = null;
+            //         document.onmousedup = null;
+            //     };
+            // };
+            //bind绑定元素时
+            bind:function(el){
+                el.focus();
+            },
+            // inserted插入到dom中时
+            inserted:function(el){
+                el.focus();
+            }
+
+        });
+        var vm = new Vue({
+            el:"#box",
+            data:{
+                msg:"welcome"
+            },
+        })
+    </script>
+</body>
+</html>

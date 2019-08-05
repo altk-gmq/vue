@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>过滤器的使用</title>
+    <script src="../js/vue.js"></script>
+    <script type="text/javascript" src="moment.js"></script>
+    <style type="text/css">
+    </style>
+</head>
+<body>
+    <div id="app">
+        <App></App>
+    </div>
+    <script>
+        let App = {
+            data(){
+                return{
+                    text:'我是父组件数据',
+                    time: new Date(),
+                    message:"hello"
+                }
+            },
+            template:
+                `<div id ="a" class="header">
+                    <h2>{{text}}</h2>
+                    <h2>{{text | myReverse}}</h2>
+                    <h2>{{time | myTime('YYYY-MM-DD')}}</h2>
+                    <br>
+                    <h2>{{time | myTime('YYYY-MM')}}</h2>
+                     <br>
+                    <h2>{{time | myTime('YYYY')}}</h2>
+                    <br>
+                    <h2>{{time | dateFormat('YYYY-mm')}}</h2>
+                    <br>
+                    <h2>{{message | messageToup}}</h2>
+                </div>`,
+                filters:{
+                    myReverse:function(val){
+                        return val.split('').reverse().join('')
+                    },
+                    myTime:function(val,formatStr){
+                        return moment(val).format(formatStr)
+                    },
+                    dateFormat:function(val,partten){
+                        let date = new Date(val);
+                        let years = date.getFullYear();
+                        let month = date.getMonth()+1;
+                        let day = date.getDate();
+                        partten = partten.toUpperCase();
+                        console.log(partten);
+                        if(partten == 'YYYY'){
+                            return `${years}` 
+                        }else if(partten == 'YYYY-MM'){
+                            return `${years}-${month}` 
+                        }else{
+                            return `${years}-${month}-${day}` 
+                        }
+                    },
+                    messageToup:function(val){
+                        if(!val) return '';
+                        val = String(val);
+                        return val.charAt(0).toUpperCase() + val.slice(1);
+                    }
+                }
+        }
+        new Vue({
+            el:"#app",
+            data(){
+                return{
+
+                }
+            },
+            components:{
+                App
+            }
+        })
+    </script>
+</body>
+</html>

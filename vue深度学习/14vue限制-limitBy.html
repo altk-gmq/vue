@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>1,vue实例</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="box">
+        <p>limitBy过滤器是配合数组使用的,限制数组元素个数</p>
+        <P>limitBy  限制几个</P>
+        <P>limitBy  参数(取几个)</P>
+        <P>limitBy  取几个  ,从哪里开始</P>
+        <P>filterBy 匹配</P>
+        <ul>
+            <li v-for="val in arr | limitBy 2 1">{{val}}</li>
+        </ul>
+
+
+         <ul>
+            <input type="text" v-model="a">
+            <li v-for="val in arr | filterBy a ">{{val}}</li>
+        </ul>
+    </div>
+    <br>
+    <script type="text/javascript">
+    	// 创建一个vue实例 new Vue
+    	
+        var vm=new Vue({
+            data:{
+                arr:[1,2,3,4,5,6,7],
+                a:''
+            },
+            methods:{
+                show:function(){
+                    alert(1);
+                }
+            }
+        }).$mount('#box');
+    </script>
+</body>
+</html>

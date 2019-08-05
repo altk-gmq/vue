@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>1,vue实例</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+       <button-coucter></button-coucter><button-coucter></button-coucter><button-coucter></button-coucter>
+    </div>
+    <br>
+    <div id="test">
+        <blog-post title="hello vue.js"></blog-post>
+        <blog-post v-for="post in posts" :id="post.id" :title="post.title":key="post.id">{{post.id}}+{{post.title}}</blog-post>
+    </div>
+    <br>
+    <div id="app3">
+        当前输入内容：{{ text }}<br>
+        <com-input :text="text" v-on:change="handleChange"/>
+    </div>
+    <script type="text/javascript">
+    	// 创建一个vue实例 new Vue
+        Vue.component('button-coucter',{
+            data:function(){
+                return {
+                    count:0
+                }
+            },
+            template:'<button v-on:click="count++">you clicked me{{count}} tiemts</button>'
+        })
+    	var vm = new Vue({
+            el:"#app",
+            data:{
+            	message:"<stong>我是strong</strong>"
+            }
+    	})
+    </script>
+    <script type="text/javascript">
+        Vue.component('blog-post',{
+            props:['title','id'],
+            template:'<h3>{{title+"-"+id}}</h3>'
+        });
+        var vm = new Vue({
+            el:"#test",
+            data:{
+                posts:[
+                { id: 1, title: 'My journey with Vue' },
+                { id: 2, title: 'Blogging with Vue' },
+                { id: 3, title: 'Why Vue is so fun' }]
+            }
+        })
+    </script>
+    <script type="text/javascript">
+        Vue.component('com-input', {
+            props: {
+                text: {
+                  type: String,
+                  default: "请输入"
+                }
+              },
+              template: '<input v-on:change="handleChange" v-model="msg"/>',
+              data () {
+                return {
+                  // 这里定义为 input 的 v-model绑定值
+                  msg: this.text
+                }
+              },
+              methods: {
+                // 当input值变化时，执行函数，通过 $emit change 事件，
+                // 父级组件通过 v-on:change 来监听此事件，执行相关操作
+                handleChange (e) {
+                  this.$emit('change', this.msg)
+                }
+              }
+            })
+            var app3 = new Vue({
+              el: "#app3",
+              data () {
+                return {
+                  text: 'Hello Vue.js'
+                }
+              },
+              methods: {
+                handleChange (val) {
+                  this.text = val
+                }
+              }
+            })
+    </script>
+</body>
+</html>

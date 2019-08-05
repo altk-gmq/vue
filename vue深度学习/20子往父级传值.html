@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>子往父级传值</title>
+    <script src="../js/vue.js"></script>
+    <style type="text/css">
+    </style>
+</head>
+<body>
+    <div id="app">
+        <App></App>
+    </div>
+    <script>
+      
+        Vue.component('Vbtn',{
+            data(){
+                return{
+                    
+                }
+            },
+            props:['id'],
+            template:
+                `<button @click="clickAdd">
+                    {{id}}
+                </button>`,
+            methods:{
+                clickAdd(){
+                    // this.$emit('父组件自定义事件','传值')
+                    this.id++;
+                    this.$emit('clickhander',this.id);
+                }
+            }    
+        });
+
+        let Vheader = {
+            data(){
+                return{
+                    
+                }
+            },
+            //挂载父组件的属性,
+            //在子组件中使用props声明，然后可以任意使用
+            //父组件中自定义属性
+            props:['msg','post'],
+            template:
+                `<div>
+                    <h2>戳地</h2>
+                    <h2>{{msg}}</h2>
+                    <br>
+                    <h2>{{post.text}}</h2>
+                    <Vbtn :id = "post.id" @clickhander="clickhander"><Vtbn>
+                </div>` ,
+                methods:{
+                    clickhander(val){
+                        this.$emit('fuclick',val);
+                        console.log(val)
+                    }
+                }   
+        }
+        // 声明子
+        let App = {
+            data(){
+                return{
+                    text:'我是父组件数据',
+                    por:{
+                        id:1,
+                        text:'我是队形'
+                    }
+                }
+            },
+            template:
+                `<div id ="a" class="header">
+                    <p>我是父组件:{{por.id}}</p>
+                    <h2>{{text}}</h2>
+                    <Vheader :msg="text" :post="por" @fuclick="fulcick"></Vheader>
+                </div>`,
+            components:{
+                Vheader
+            },
+            methods:{
+                fulcick(val){
+                    this.por.id = val;
+                }
+            }
+        }
+        new Vue({
+            el:"#app",
+            data(){
+                return{
+
+                }
+            },
+            components:{
+                App
+            }
+        })
+    </script>
+</body>
+</html>

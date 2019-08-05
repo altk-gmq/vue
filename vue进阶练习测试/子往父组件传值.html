@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .par{
+            border: 1px solid #cccccc;
+            padding: 10px;
+        }
+        .son{
+            border: 1px dashed #333333;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+    <template id="parent">
+        <div class="par">
+           <h2>我是父组件，我有{{money}}元</h2>
+           <h2>我是父组件，我再给子组件2-{{hgn}}元</h2>
+           <h2>我是父组件，我是{{vue}}</h2>
+           <div class="son">
+                <child @func="change"></child>
+           </div>
+           <div class="son">
+               <child2 :n.sync="hgn" :vue.sync="vue"></child2>
+           </div>
+        </div>
+    </template>
+    <template id="child">
+        <div>
+            <h3>我是子组件，我有{{m}}元</h3>
+            <button @click="getMore">我给父组件再给点</button>
+        </div>
+    </template>
+    <template id="child2">
+        <div>
+            <h3>我是子组件2，我有{{m}}元</h3>
+            <h3>我是子组件2，父组件给我{{n}}元</h3>
+            <button @click="getMore">父组件再给点</button>
+        </div>
+    </template>
+    <script src="../js/vue.js"></script>
+    <script>
+        let child = {
+            template:"#child",
+            data(){
+                return{
+                    m:1000,
+                    ever:200,
+                }
+            },
+            methods:{
+                getMore(){
+                    if(this.m < 200){
+                        alert("我没有多余的钱给了》》》");
+                        this.ever = 0;
+                    }
+                    this.$emit("func",this.ever);
+                    this.m = this.m-this.ever;
+                }
+            }
+        };
+        let child2 = {
+            template:"#child2",
+            props:['n'],
+            data(){
+                return{
+                    m:10000,
+                }
+            },
+            methods: {
+                getMore(){
+                    this.$emit("update:n",400);
+                    this.$emit("update:vue","VUE")
+                }
+            },
+        }
+        var vm = new Vue({
+            el:"#app",
+            data() {
+                return {
+                   money:100,
+                   hgn:200,
+                   vue:"vue"
+                }
+            },
+            template:'#parent',
+            components:{
+                child,
+                child2
+            },
+            methods: {
+                change(data){
+                    this.money = this.money + data;
+                }
+            },
+        })
+    </script>
+</body>
+</html>

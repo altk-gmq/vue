@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>过滤器的使用</title>
+    <script src="../js/vue.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <style type="text/css">
+    </style>
+</head>
+<body>
+    <div id="app">
+        <App></App>
+    </div>
+    <script>
+        // 模块化编程
+        // Vue.use(VueRouter)
+
+        const User = {
+            data(){
+                return{
+                    user_id:null
+                }
+            },
+            template:
+                `<div>我是用户{{user_id}}
+                    <button @click="taiozhuan">跳转首页</button>
+                </div>`,
+            methods:{
+                taiozhuan(){
+                    this.$router.push({
+                        name:'Home'
+                    })
+                }
+            }
+        };
+        const Home = {
+            data(){
+                return{}
+            },
+            template:`<div>我是首页</div>`
+        };
+        // 创建路由
+        const router = new VueRouter({
+            //定义路由规则
+            routes:[
+                {
+                    path:'/user/:id',
+                    name:'User',
+                    component:User
+                },
+                {
+                    path:'/home',
+                    name:'Home',
+                    component:Home
+                },
+            ]
+        })
+        let App = {
+            data(){
+                return{}
+            },
+            // router-link 和 router-view 是vue-router 提供的两个全局组件
+            // router-view 是路由组件出口 <router-link to = '/course'>课程</router-link>
+            template:
+            `
+                <div class="headerBox">
+                    <div class="header">
+                        <router-link :to = '{name:"User",params:{id:1}}'>用户1</router-link><router-link :to = '{name:"User",params:{id:2}}'>用户2</router-link>
+                    </div>
+                    <router-view></router-view>
+                </div>
+            `
+        }
+        new Vue({
+            el:"#app",
+            router:router,
+            data(){
+                return{
+
+                }
+            },
+            components:{
+                App
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>hell0 {{msg}}</h1>
+        <h1 v-text="msg"></h1>
+        <h2 v-text="content"></h2>
+        <!--v-text h2被转义了 -->
+        <h3 v-html="number"></h3>
+        <!--v-html h2没有转义 -->
+        <h4 v-on:click="handclick">{{msg}}</h4>
+        <h4 @click="handclick">{{msg}}</h4>
+    </div>
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                msg:"world",
+                content:'<h1>hell0</h1>',
+                number:'<h1>123</h1>'
+            },
+            methods:{
+                handclick:function(){
+                    this.number = '<h1>465</h1>'
+                }
+            }
+        })
+    </script>
+</body>
+</html>

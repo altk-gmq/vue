@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>条件渲染</title>
+	<script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+        <p>mouseenter/mouseleave/mousedown/mouseup/click/dblclick</p>
+        <p>{{num}}</p>
+        <p>
+            <input type="text" @keyup.enter="num++">
+        </p>
+		<button @click="add(3)">add</button>
+        <button @click.ctrl.alt="add(3)">add</button>   <!-- 按住ctrl+alt -->
+        <button @click.ctrl.exact="add(3)">add</button>  <!-- 只按住ctrl -->
+        <div style="width: 200px;height: 200px;background: #f00" @click="a1">
+            <div style="width: 100px;height: 100px;background: #0f0"  @click.stop="a2">
+                <!-- @click.stop阻止事件冒泡 -->
+            </div>
+        </div>
+        <a href="http://www.baidu.com" @click.prevent.once="a3">度娘</a>
+        <!-- @click.prevent 阻止默认事件-->
+
+
+        <button @click="show($event)">点击</button>
+	</div>
+    <script type="text/javascript">
+        Vue.config.keyCodes={c:17}  //自定义按键
+    	var vm = new Vue({
+    		el:"#app",
+    		data:{
+    			num:1
+    		},
+    		methods:{
+                add:function(e){
+                    this.num+=e;
+                    // alert(e.target.tagName)
+                },
+                a1:function(){
+                    alert("a1")
+                },
+                a2:function(){
+                    alert("a2")
+                },
+                a3:function(){
+                    alert("a3")
+                },
+                show:function(e){
+                    alert(e.clientX)
+                    e.cancelBubble = true;  //阻止事件冒泡
+                    e.preventDefaule();
+                }
+    		}
+    	})
+    </script>
+</body>
+</html>

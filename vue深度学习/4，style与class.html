@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<script type="text/javascript" src="../js/vue.js"></script>
+	<style type="text/css">
+		.bd{font-weight: bold}
+		.text-red{color: red}
+		.bg-green{background: green}
+		.bg-gray{background: gray}
+	</style>
+</head>
+<body>
+    <div id="app">
+    	<!-- text-red 这种形式的必须使用 ‘’ -->
+    	<p :class="{bd:pclass.is_bd,'text-red':pclass.is_text,'bg-green':pclass.is_bg}">{{msg}}
+    	</p>
+    	<p :class="pobj">{{msg}}</p>
+    	<p :class="['bd',{'text-red':pclass.is_text},pobj2]">{{msg}}</p>
+    	<p :class="pclass.is_bg?'bd':'bg-green'">{{msg}}</p>
+
+
+    	<!-- 绑定样式 -->
+    	<p :style="{color:psty.color,'font-size':psty.fontSize}">{{msg}}</p>
+    	<p :style="psobj">{{msg}}</p>
+    	<p :style="[{color:'#f00',fontSize:psobj.fontSize},psty]">{{msg}}</p>
+
+    	<br>
+    	<p>从数组中获取</p>
+    	<p :class="[color,ft]">我是从data中获取的</p>
+    </div>
+    <script type="text/javascript">
+    	var vm = new Vue({
+    		el:"#app",
+    		data:{
+    			msg:"你好",
+    			color:'bd',
+    			ft:'bg-green',
+    			pclass:{
+    				is_bd:true,
+    				is_text:true,
+    				is_bg:false
+    			},
+    			pobj:{
+    				bd:true,
+    				'text-red':true,
+    				'bg-gray':true
+    			},
+    			psty:{
+    				color:"red",
+    				fontSize:25+"px"
+    			},
+    			psobj:{
+    				color:'blue',
+    				fontSize:'30px'
+    			}
+    		},
+    		computed:{
+    			pobj2:function(){
+    				return {
+    					'bg-gray':this.pclass.is_bg
+    				}
+    			}
+    		}
+    	})
+    </script>
+</body>
+</html>

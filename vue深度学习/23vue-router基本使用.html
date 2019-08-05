@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>过滤器的使用</title>
+    <script src="../js/vue.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <style type="text/css">
+    </style>
+</head>
+<body>
+    <div id="app">
+        <App></App>
+    </div>
+    <script>
+        // 模块化编程
+        // Vue.use(VueRouter)
+
+        const Home = {
+            data(){
+                return{}
+            },
+            template:`<div>我是首页</div>`
+        };
+        const Course = {
+            data(){
+                return{}
+            },
+            template:`<div>我是课程</div>`
+        };
+        // 创建路由
+        const router = new VueRouter({
+            //定义路由规则
+            // mode:'history', //配合服务器，必须在服务器
+            routes:[
+                {
+                    path:'/',
+                    redirect:'/home'
+                },
+                {
+                    path:'/home',
+                    component:Home
+                },
+                {
+                    path:'/course',
+                    component:Course
+                }
+            ]
+        })
+        let App = {
+            data(){
+                return{
+                    items:[
+                        {id:'/',name:'首页'},
+                        {id:'/Course',name:'课程'},
+                        {id:'/Score',name:'成绩'},
+                        {id:'/Default',name:'错误'},
+                    ]
+                }
+            },
+            // router-link 和 router-view 是vue-router 提供的两个全局组件
+            // router-view 是路由组件出口 <router-link to = '/course'>课程</router-link>
+
+            // <router-link :to = "{name:'Course',query:{userid:2}}">免费课程</router-link>  添加？
+            template:
+            `
+                <div class="headerBox">
+                    <div class="header">
+                        <router-link to = '/'>首页</router-link>
+                        <router-link to = '/course'>课程</router-link>
+                    </div>
+                    <router-view></router-view>
+                </div>
+            `
+        }
+        new Vue({
+            el:"#app",
+            router:router,
+            data(){
+                return{
+
+                }
+            },
+            components:{
+                App
+            }
+        })
+    </script>
+</body>
+</html>

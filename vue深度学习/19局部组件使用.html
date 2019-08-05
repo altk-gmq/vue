@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>局部组件使用</title>
+    <script src="../js/vue.js"></script>
+    <style type="text/css">
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .header{
+            height: 40px;
+            line-height: 40px;
+            /*background: #ccc;*/
+            box-shadow: 4px 4px 8px #333;
+            padding: 0 15px;
+            overflow: hidden;
+        }
+        .title{
+            font-size: 16px;
+            width: 200px;
+            float: left;
+        }
+        .nav{
+            float: right;
+        }
+        .nav li{
+            display: inline-block;
+            padding: 0 15px;
+        }
+        .nav li a{
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+        }
+        .nav li a:hover,.nav li a.active{
+            color: #2261a9;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <App></App>
+        <h2>组件的data和实例的data不太一样，实例中的data可以为一个对象，组件中的data一定是一个方法</h2>
+    </div>
+    <script>
+        let Vheader_title = {
+            data(){
+                return{
+                    text:"北斗天地测绘有限公司"
+                }
+            },
+            template:'<h3 class="title">{{text}}</h3>'
+        }
+        let Vheader_nav = {
+            data(){
+                return{
+                    navs:['首页','商店','服务','技术','联系'],
+                    currIndex:0
+                }
+            },
+            template:
+                `<ul class="nav">
+                    <li v-for="(val,i) in navs" :key="i">
+                        <a href="#" :class="{active:i == currIndex}" @click="changeNav(i)">{{val}}</a>
+                    </li>
+                </ul>`,
+            methods:{
+                changeNav:function(i){
+                    this.currIndex = i
+                }
+            }    
+        }
+        // 声明子
+        let App = {
+            data(){
+                return{
+                    text:'vue.js 组件--我是根组件'
+                }
+            },
+            template:
+                `<div id ="a" class="header">
+                    <Vheader_title></Vheader_title>
+                    <Vheader_nav></Vheader_nav>
+                </div>`,
+            components:{
+                Vheader_title,
+                Vheader_nav
+            }
+        }
+        new Vue({
+            el:"#app",
+            data(){
+                return{
+
+                }
+            },
+            components:{
+                App
+            }
+        })
+    </script>
+</body>
+</html>

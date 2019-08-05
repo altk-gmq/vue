@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <input v-model="inputvalue"/>
+        <button @click="handleclick">提交</button>
+        <ul>
+            <todo-item v-for="(item,index) of list" 
+                :key="index" 
+                :content="item">
+            </todo-item>
+        </ul>
+
+    </div>
+    <script>
+        // 定义全局组件
+        Vue.component('todo-item',{
+            props:['content'],
+            template:'<li>{{content}}</li>'
+        })
+        // 定义局部组件
+        // var todoItem = {
+        //     template:'<li>item</li>'
+        // }
+
+        new Vue({
+            el:"#root",
+            // 定义局部组件必须注册注册todoitem
+            // components:{
+            //     'todo-item':todoItem
+            // },
+            data:{
+                inputvalue:'',
+                list:[]
+           },
+           methods:{
+               handleclick:function(){
+                   this.list.push(this.inputvalue)
+                   this.inputvalue = ''
+               }
+           }
+        })
+    </script>
+</body>
+</html>

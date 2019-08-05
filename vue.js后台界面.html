@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/vue.js"></script>
+    <script src="js/vue-router.min.js"></script>
+    <style>
+        .left-menu{
+            width: 200px;
+            position: absolute;
+            top: 52px;
+            bottom: 0;
+            background: #dddddd;
+        }
+        .right-content{
+            position: absolute;
+            left: 200px;
+            right: 0;
+            top: 52px;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-default">
+        <div class="navbar-head">
+            <a class="navbar-brand">后台管理</a>
+        </div>
+        <ul class="nav navbar-nav pull-right">
+            <li>
+                <a href="#">admin</a>
+            </li>
+            <li>
+                <a href="#">退出</a>
+            </li>
+        </ul>
+    </div>
+    <div class="left-menu" id="left-menu">
+        <ul class="nav navbar">
+            <li v-for="(list,index) in lists">
+               <a href="#" data-toggle="collapse">
+                   <span v-bind:class="list.classA"></span>
+                   {{list.title}}
+                  <i v-bind:class="list.classB"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="right-content">
+        我是内容
+    </div>
+    <script>
+        new Vue({
+            el:"#left-menu",
+            data:{
+                lists:[
+                    {
+                        path:'/index.html',
+                        classA:'glyphicon glyphicon-user',
+                        title:"菜单管理",
+                        classB:"glyphicon glyphicon-chevron-right pull-right"
+                    },
+                    {
+                        classA:'glyphicon glyphicon-user',
+                        title:"人员管理",
+                        classB:"glyphicon glyphicon-chevron-right pull-right"
+                    },
+                    {
+                        classA:'glyphicon glyphicon-user',
+                        title:"考勤管理",
+                        classB:"glyphicon glyphicon-chevron-right pull-right"
+                    },
+                    {
+                        classA:'glyphicon glyphicon-euro',
+                        title:"日志管理",
+                        
+                    },
+                ]
+            },
+        })
+    </script>
+</body>
+</html>

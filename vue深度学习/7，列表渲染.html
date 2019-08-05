@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>条件渲染</title>
+	<script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<ul>
+			<li v-for="(item,index) in items" :key='index'>{{item.id}}+{{item.text}}</li>
+		</ul>
+		<ul>
+			<!-- (value,item,key)  value 表示值，item表示建值，key表示索引-->
+			<!-- $index ,$key 是vue 自带的索引,键值-->
+			<li v-for="(value,item,key) in obj">   {{key}}+{{item}}+{{value}}</li>
+		</ul>
+		<button @click="oushu">偶数</button>
+	</div>
+	<div id="app2">
+		<p v-if="false">{{msg}}</p>
+		<ul>
+			<todo-item v-for="(item,index) in items" :key="index" :item="item" @click="items.splice(index,1)"></todo-item>
+		</ul>
+	</div>
+	<div id="app3">
+		<button @click="add">添加</button>
+		<ul>
+			<li v-for="(val,i) in arr" track-by="i">{{i}}--{{val}}</li>
+		</ul>
+	</div>
+    <script type="text/javascript">
+    	Vue.component('todo-item',{
+    		props:['item'],
+    		template:'\<li>{{item.id}}--{{item.text}} <button @click="$emit(\'del\')">X</button></li>\
+    		'
+    	})
+    	var app = new Vue({
+    		el:"#app2",
+    		data:{
+    			items:[
+    			{id:1,text:"aaa"},
+    			{id:2,text:"bbb"},
+    			{id:3,text:"ccc"},
+    			],
+    		}
+    	});
+    	var vm = new Vue({
+    		el:"#app",
+    		data:{
+    			items:[
+    			{id:1,text:"aaa"},
+    			{id:2,text:"bbb"},
+    			{id:3,text:"ccc"},
+    			],
+    			obj:{
+    				username:"张三",
+    				sex:"女",
+    				age:25
+    			}
+    		},
+    		methods:{
+    			oushu:function(){
+    				this.items=this.items.filter(function(item){
+    					return item.id%2==0
+    				})
+    			}
+    		}
+    	});
+    	var app3 = new Vue({
+    		data:{
+    			arr:['apple','pear','orange']
+    		},
+    		methods:{
+    			add:function(){
+    				this.arr.push('tomato')
+    			}
+    		}
+    	}).$mount('#app3')
+    </script>
+</body>
+</html>

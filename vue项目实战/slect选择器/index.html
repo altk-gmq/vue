@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>组件练习</title>
+  <link rel="stylesheet" type="text/css" href="component.css" rel="external nofollow" />
+  <script src="../../js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+  <h2>组件1</h2>
+  <custom-select btn="查询" :list="list1"></custom-select>
+  <h2>菜单2</h2>
+  <custom-select btn="搜索" :list="list2"></custom-select>
+</div>
+<script>
+  //注册组件
+  let list1 = ["北京","上海","深圳","郑州","南阳"];
+  let list2 = ["胡歌","陈默","陶亚东","刘同"];
+  Vue.component("custom-select",{
+    data:function(){
+      return {
+        selectShow:false,
+        val:""
+      }
+    },
+    props:["btn","list"],
+    template:`
+    <section class="wrap">
+    <div class="searchIpt clearFix">
+      <div class="clearFix">
+        <input type="text"
+         class="keyWord"
+         :value="val"
+         @click="selectShow=!selectShow"
+         />
+        <input type="button" :value="btn"/>
+        <span></span>
+      </div>
+      <custom-list
+      v-show="selectShow"
+       :list="list"
+       v-on:value1="selectValueHandle"
+       ></custom-list>
+    </div>
+  </section>
+    `,
+    methods:{
+      selectValueHandle(value){
+        this.val = value;
+      }
+    }
+  });
+  Vue.component("custom-list",{
+    props:["list"],
+    template:`
+      <ul class="list">
+        <li
+          v-for="item in list"
+          @click="searchValueHandle(item)"
+        >{{item}}</li>
+      </ul>
+    `,
+    methods:{
+      searchValueHandle(item){
+        this.$emit("value1",item)
+      }
+    }
+  });
+  var vm = new Vue({
+    el:"#app",
+    data:{
+      list1:list1,
+      list2:list2
+    }
+  });
+</script>
+</body>
+</html>

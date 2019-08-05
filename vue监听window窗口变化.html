@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv=“X-UA-Compatible” content=“IE=EDGE”/>
+	<title>监听窗口变化</title>
+	<script type="text/javascript" src="./js/vue.js"></script>
+	<style type="text/css">
+		*{
+			padding: 0;
+			margin: 0;
+		}
+		#app{
+			width: 100%;
+		}
+		img{
+			border: 0;
+		}
+		img{
+			vertical-align: middle;
+		}
+		.bg_img{
+			width: 100%;
+			height: auto;
+		}
+	</style>
+</head>
+<body>
+    <div id="app" :style="{height:clientHeight+`px`}">
+    	<img src="./img/Loginbg.jpg" class="bg_img" :style="{height:clientHeight+`px`}">
+    </div>
+    <script type="text/javascript">
+    	new Vue({
+    		el:"#app",
+    		data(){
+    			return{
+    				clientHeight:document.documentElement.clientHeight,
+    				timer:false
+    			}
+    		},
+    		mounted(){
+    			window.onresize = () => {
+    				const that = this;
+    				that.clientHeight = document.documentElement.clientHeight;
+    			} 
+    		},
+    		watch:{
+    			clientHeight(val){
+    				if (!this.timer) {
+	                    this.clientHeight = val
+	                    this.timer = true
+	                    let that = this
+	                    setTimeout(function () {
+	                        that.timer = false
+	                    })
+	                }
+    				console.log("窗口变化了，现在高度为：" + val)
+    			}
+    		}
+    	})
+    </script>
+</body>
+</html>

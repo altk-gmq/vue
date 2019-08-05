@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>vue使用ajax</title>
+	<script type="text/javascript" src="../js/vue.js"></script>
+    <script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
+    <style type="text/css">
+        ul{
+            list-style: none;
+        }
+        ul li{
+            display: inline-block;
+            padding: 0 15px;
+            cursor: pointer;
+        }
+        li.active{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+    	<ul>
+            <li v-for="(val,index) in items" :key="val.id" :class="{active: currIndex == index}" @click="handleClcik(index,val.id)" >{{val.name}}</li>   
+        </ul>
+        <div>
+            <div>{{content}}</div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    	var app = new Vue({
+    		el:"#app",
+    		data(){
+    			return{
+                    items:[],
+                    currIndex:0,
+                    content:[]
+    			}
+    		},
+    		methods:{
+                handleClcik:function(e,id){
+                    this.currIndex = e;
+                    // 发起请求
+                    $.ajax({
+                        url:"https://www.luffycity.com/api/v1/courses/?sub_category="+id+"",
+                        type:"get",
+                        success:(res)=>{
+                            var data = res.data;
+                            // console.log(data)
+                            this.content = data;
+                        }
+                    })
+                }
+			},
+            created(){
+                $.ajax({
+                    url:"https://www.luffycity.com/api/v1/course_sub/category/list/",
+                    type:"get",
+                    success:(res)=>{
+                        // console.log(res)
+                        if(res.error_no === 0){
+                            var data = res.data;
+                            var obj = {
+                                id:0,
+                                name:'全部',
+                                category:0
+                            }
+                            this.items = data;
+                            this.items.unshift(obj)
+                        }
+                    },
+                    error:function(err){
+                        console.log(err)
+                    }
+                })
+            }
+    	})
+    </script>
+</body>
+</html>

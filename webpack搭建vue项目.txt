@@ -1,0 +1,21 @@
+1，先安装好，node/npm  
+2，使用淘宝镜像   npm install -g cnpm registry=http://registry.npm.taobao.org
+3，安装vue-cli脚手架       cnpm install -g @vue/cli
+4，拉取2 版本    cnpm install -g vue/cli-init  //可以不用
+
+
+
+5，使用webpack 安装vue    vue init webpack-simple demo     //简单模板
+                                          vue init webpack demo                //复杂模板   --常用 
+
+6，进入文件   cd demo
+
+7，安装依赖    cnpm install                   //如果选择的是 yes use NPM  安装依赖使用 npm install      
+                                                           //如果选择的是 yes I will handle that myself     安装依赖使用  cnpm install
+
+8，运行项目    cnpm run dev 
+                      npm run dev
+
+9，安装vue 和 vue-router                     cnpm i vue vue-router -S
+
+10，安装vuex                     cnpm i vuex -S

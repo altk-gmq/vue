@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .par{
+            border: 1px solid #cccccc;
+            padding: 10px;
+        }
+        .son{
+            border: 1px dashed #333333;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+    <template id="parent">
+        <div class="par">
+            <h2>{{ msg }}----{{ count }}</h2>
+            <!-- v-model可以双向数据绑定，通过父往子传值，改变父组件的值，子组件接收到props也会动态改变
+            前提是子组件要通过v-on绑定v-model绑定的值
+            -->
+            <input type="text" v-model="data">
+            <button @click="changeSonCount">点击我把父组件的5传给子组件</button>
+            <div class="son">
+                <child :countf="data"></child>
+            </div>
+        </div>
+    </template>
+    <template id="child">
+        <div>
+            <h3>{{ msg }}----{{ count }}</h3>
+            <h3>我是接受父组件传过来的---{{ countf }}</h3>
+        </div>
+    </template>
+    <script src="../js/vue.js"></script>
+    <script>
+        let child = {
+            template:"#child",
+            props:['countf'],
+            data(){
+                return{
+                    msg:"我是子组件的msg",
+                    count:4
+                }
+            },
+            //通过监听器，监听某一个值的改变
+            watch: {
+                countf:function(val){
+                    this.count = val;
+                }
+            },
+        }
+        var vm = new Vue({
+            el:"#app",
+            data() {
+                return {
+                    msg:"我是父组件的msg",
+                    count:5,
+                    data:"我是父组件的数据"
+                }
+            },
+            template:'#parent',
+            components:{
+                child
+            },
+            methods: {
+                changeSonCount(){
+                    // alert(1)t
+                    this.data = this.count
+                }
+            },
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>交互</title>
+	<script type="text/javascript" src="../js/vue.js"></script>
+    <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+</head>
+<body>
+	<div id="app">
+        <input type="text" v-model="t1" @keyup="get">
+        <ul>
+            <li v-for="value in myData">{{value}}</li>
+        </ul>
+        <p v-show="myData.length == 0">暂无数据...</p>
+	</div>
+    <script type="text/javascript">
+        window.onload = function(){
+            var vm = new Vue({
+                el:"#app",
+                data:{
+                    myData:[],
+                    t1:''
+                },
+                methods:{
+                    get:function(){
+                        // jsonp方法服务器上面取数据
+                        this.$http.jsonp('https://www.baidu.com/a?wd=a',
+                            {wd:this.t1},
+                            {jsonp:'cb'
+                            }).then(function(res){
+                            this.myData=res.data.s;
+                        },function(){
+                            alert(res.status)
+                        })
+                    },
+                }
+            }) 
+        }
+    </script>
+</body>
+</html>

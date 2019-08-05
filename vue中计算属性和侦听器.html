@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <!-- 计算属性 computed
+        姓：<input v-model="firstName">
+        名：<input v-model="lastName">
+        <div>{{fullName}}</div>
+        <div>{{conut}}</div> -->
+        <input type="text" v-model="firstName">
+        <input type="text" v-model="lastName">
+        <div>{{fullName}}</div>
+        <div>{{count}}</div>
+        <div>{{msg}}</div>
+        <div>a={{a}},b={{b}}</div>
+    </div>
+    <script>
+        var app = new Vue({
+            el:"#root",
+            data:{
+                firstName:'',
+                lastName:'',
+                count:0,
+                msg:"hello world",
+                a:1,
+            },
+            computed:{
+                fullName:function(){
+                    return this.firstName+' '+this.lastName
+                },
+                b:function(){
+                    return this.a+1;
+                }
+            },
+            watch:{
+                fullName:function(){
+                    this.count++
+                },
+                msg:function(newval,oldval){
+                    alert("newval:"+newval+','+"oldval:"+oldval)
+                }
+            }
+        })
+        // new Vue({
+        //     el:"#root",
+        //     data:{
+        //         firstName:'',
+        //         lastName:'',
+        //         conut:0
+        //     },
+        //     computed:{
+        //         fullName:function(){
+        //             return this.firstName + ' ' + this.lastName
+        //         }
+        //     },
+        //     watch:{
+        //         // firstName:function(){
+        //         //     this.conut++
+        //         // },
+        //         // lastName:function(){
+        //         //     this.conut++
+        //         // }
+        //         fullName:function(){
+        //             ths.conut++
+        //         }
+        //     }
+        // })
+    </script>
+</body>
+</html>

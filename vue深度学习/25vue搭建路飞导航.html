@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>路由练习搭建路飞导航</title>
+	<script type="text/javascript" src="../js/vue.js"></script>
+	<script type="text/javascript" src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+	<style type="text/css">
+		 *{
+            padding: 0;
+            margin: 0;
+        }
+        .header{
+            height: 60px;
+            box-shadow: 4px 4px 8px #333;
+            padding: 0 15px;
+            overflow: hidden;
+        }
+        .header-title{
+        	line-height: 60px;
+            font-size: 20px;
+            width: 200px;
+            float: left;
+            letter-spacing: 8px;
+        }
+        .header-nav{
+            float: right;
+            height: 60px;
+        }
+        .nav-list{
+        	list-style: none;
+        }
+        .header-nav li{
+        	height: 60px;
+        	line-height: 60px;
+            float: left;
+            padding: 0 15px;
+        }
+        .header-nav li a{
+        	font-size: 14px;
+        	font-weight: 600;
+        	text-decoration: none;
+        	color: #333;
+        }
+        .header-nav li a:hover ,.header-nav li a.active{
+        	color: #3e42b3;
+        }
+        .content{
+        	width: 100%;
+        	background: #f2f2f2;
+        }
+	</style>
+</head>
+<body>
+	<div id="app">
+		<Headerbox></Headerbox>
+		<Contentbox></Contentbox>
+	</div>
+	<script type="text/javascript">
+		//声明头部导航菜单
+		let Headernav = {
+			data(){
+				return{
+					items:[
+						{id:1,title:"首页",link:"/Index"},
+						{id:2,title:"免费课程",link:"/Freecourse"},
+						{id:3,title:"轻课",link:"/SmallCourse"},
+						{id:4,title:"学位课程",link:"/XwCourse"},
+						{id:5,title:"智能题库",link:"/TiKu"},
+						{id:6,title:"公开课",link:"/GkCourse"},
+						{id:7,title:"内部教材",link:"/Nbjc"},
+					],
+					currIndex:null    //可以设置第一个不为选中
+				}
+			},
+			template:
+			`<div class="header-nav">
+				<ul class="nav-list">
+					<li v-for="(val,i) in items" @click="changeNav(i)">
+						<router-link :to = 'val.link' :class="{active:i == currIndex}" >{{val.title}}</router-link>
+					</li>
+				</ul>
+			</div>`,
+			methods:{
+				changeNav:function(i){
+					this.currIndex =i;
+					// console.log(this.currIndex)
+					// alert(12)
+				}
+			}
+		}
+		// 声明头部title组件
+		let Headertile = {
+			data(){
+				return{}
+			},
+			template:
+			`<div class="header-title">
+				<h4>路飞学院</h4>
+			</div>`
+		}
+		// 声明头部盒子组件
+		let Headerbox = {
+			data(){
+				return{}
+			},
+			template:
+			`<div class="header">
+				<Headertile></Headertile>
+				<Headernav></Headernav>
+			</div>`,
+			components:{
+				Headertile,
+				Headernav
+			}
+		}
+		// 声明内容盒子组件
+		let Contentbox = {
+			data(){
+				return{}
+			},
+			template:
+			`<div class="content">
+				<router-view></router-view>
+			</div>`,
+		}
+		const Index = {
+            data(){
+                return{}
+            },
+            template:`<div>我是首页</div>`
+        };
+        const FreeCourse = {
+            data(){
+                return{}
+            },
+            template:`<div>我是免费课程</div>`
+        };
+        const SmallCourse = {
+            data(){
+                return{}
+            },
+            template:`<div>我是轻课</div>`
+        };
+        const XwCourse = {
+            data(){
+                return{}
+            },
+            template:`<div>我是学位课程</div>`
+        };
+        const TiKu = {
+            data(){
+                return{}
+            },
+            template:`<div>我是智能题库</div>`
+        };
+        const GkCourse = {
+            data(){
+                return{}
+            },
+            template:`<div>我是公开课</div>`
+        };
+        const Nbjc = {
+            data(){
+                return{}
+            },
+            template:`<div>我是内部教材"</div>`
+        };
+		// 创建路由
+		const router = new VueRouter({
+			routes:[
+				{
+					path:'/',
+					name:'Home',
+					redirect:'/home'
+				},
+				{
+					path:'/Index',
+					name:'Index',
+					component:Index
+				},
+				{
+					path:'/freecourse',
+					name:'FreeCourse',
+					component:FreeCourse
+				},
+				{
+					path:'/smallcourse',
+					name:'SmallCourse',
+					component:SmallCourse
+				},
+				{
+					path:'/xwcourse',
+					name:'XwCourse',
+					component:XwCourse
+				},
+				{
+					path:'/tiku',
+					name:'TiKu',
+					component:TiKu
+				},
+				{
+					path:'/gkcourse',
+					name:'GkCourse',
+					component:GkCourse
+				},
+				{
+					path:'/nbjc',
+					name:'Nbjc',
+					component:Nbjc
+				},
+			]
+		})
+		new Vue({
+			router:router,
+			data(){
+				return{
+					msg:"hello vue"
+				}
+			},
+			components:{
+				Headerbox,
+				Contentbox
+			}
+		}).$mount("#app")
+	</script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <my-com2></my-com2>
+        <my-com21></my-com21>
+    </div>
+    <script>
+        // 1.2使用Vue.component第一个参数用来引用组件，第二个参数为展示的内容
+        Vue.component('myCom2',{
+            template:'<h2>这里是直接使用vue.component创建的组件</h2>'
+        })
+        Vue.component('myCom21',{
+            // 不论是那种方式创建的组件，组件的template属性有且只能有一个根元素
+            template:'<div><h3>这里是直接使用vue.component创建的组件</h3><span>45<span></div>'
+        })
+        new Vue({
+            el:"#app"
+        })
+    </script>
+</body>
+</html>
